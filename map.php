@@ -30,9 +30,7 @@ $shiftsIds=collect($shifts)->map(function ($shift) {
 
 
 $shiftsIds=collect($shifts)->map(function ($shift) {
-    $parts = explode('_', $shift);
-
-    return end($parts);// get last part
+    return collect(explode('_', $shift))->last();// get last part
 });
 
 
