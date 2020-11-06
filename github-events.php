@@ -49,15 +49,27 @@ function github_score($events)
 
 class GithubScore
 {
+    private $events;
+
+    public function __construct($events)
+    {
+        $this->events=$events;
+    }
+
     public static function score($events)
     {
-        return $events->pluck('type')
+        return (new static($events))->scoreEvents();
+    }
+
+    private function scoreEvents()
+    {
+        return $this->events->pluck('type')
         ->map(function ($eventType) {
-            return static::lookupEventScore($eventType);
+            return $this->lookupEventScore($eventType);
         })->sum();
     }
 
-    public static function lookupEventScore($eventType)
+    private function lookupEventScore($eventType)
     {
         // 1 is the default if not found the key
         return collect([
