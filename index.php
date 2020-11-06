@@ -29,9 +29,7 @@ $totalCost =$products->filter(function ($product) {
     return collect(['Lamp','Wallet'])->contains($product['product_type']);
 })->flatMap(function ($product) {
     return $product['variants'];
-})
-->pluck('price')
-->sum();
+})->sum('price');
 
 
 
