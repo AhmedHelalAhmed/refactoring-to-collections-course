@@ -48,22 +48,26 @@ function github_score($events)
 */
 
 
-
+// global function
 function github_score($events)
 {
     return $events->pluck('type')
     ->map(function ($eventType) {
-        // 1 is the default if not found the key
-        return collect([
+        return lookup_event_score($eventType);
+    })->sum();
+}
+
+// global function
+function lookup_event_score($eventType)
+{
+    // 1 is the default if not found the key
+    return collect([
             'PushEvent'=> 5,
             'CreateEvent'=> 4,
             'IssuesEvent'=> 3,
             'CommitCommentEvent' => 2,
         ])->get($eventType, 1);
-    })->sum();
 }
-
-
 
 $events = collect(load_json('data/events.json'));
 
