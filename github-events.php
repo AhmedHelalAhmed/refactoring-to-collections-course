@@ -54,18 +54,15 @@ function github_score($events)
     $eventTypes=$events->pluck('type');
 
     $scores=$eventTypes->map(function ($eventType) {
-        $scoreTable=[
+        $scoreTable=collect([
             'PushEvent'=> 5,
             'CreateEvent'=> 4,
             'IssuesEvent'=> 3,
             'CommitCommentEvent' => 2,
-        ];
+        ]);
 
-        if (!isset($scoreTable[$eventType])) {
-            return 1;
-        }
-
-        return $scoreTable[$eventType];
+        // 1 is the default if not found the key
+        return $scoreTable->get($eventType, 1);
     });
 
 
