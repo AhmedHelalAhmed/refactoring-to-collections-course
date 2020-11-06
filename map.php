@@ -12,6 +12,7 @@ $shifts=[
 ];
 
 // way one
+/*
 $shiftsIds=collect($shifts)->map(function ($shift) {
     if (strrpos($shift, '_')===false) {
         return $shift;
@@ -21,13 +22,18 @@ $shiftsIds=collect($shifts)->map(function ($shift) {
     $substringOffset=$underscorePosition+1;
     return substr($shift, $substringOffset);
 });
+*/
 
 
 
+// way two
 
 
+$shiftsIds=collect($shifts)->map(function ($shift) {
+    $parts = explode('_', $shift);
 
-
+    return end($parts);// get last part
+});
 
 
 
