@@ -28,22 +28,16 @@ $lampsAndWallets=$products->filter(function ($product) {
 });
 
 
-$prices=collect();
-
-foreach ($lampsAndWallets as $product) {
-    foreach ($product['variants'] as $variant) {
-        $prices[]=$variant['price'];
-    }
-}
-
 
 $variants=$lampsAndWallets->map(function ($product) {
     return $product['variants'];
 })->flatten(1);
 
 
+$prices=$variants->map(function ($variant) {
+    return $variant['price'];
+});
 
-dd($variants);
 
 
 
