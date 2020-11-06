@@ -22,27 +22,14 @@ foreach ($products as $product) {
 }
 */
 
-
-$lampsAndWallets=$products->filter(function ($product) {
+$totalCost =$products->filter(function ($product) {
     return collect(['Lamp','Wallet'])->contains($product['product_type']);
-});
-
-
-
-$variants=$lampsAndWallets->map(function ($product) {
+})->map(function ($product) {
     return $product['variants'];
-})->flatten(1);
-
-
-$prices=$variants->map(function ($variant) {
+})->flatten(1)
+->map(function ($variant) {
     return $variant['price'];
-});
-
-
-
-
-$totalCost =$prices->sum();
-
+})->sum();
 
 
 
