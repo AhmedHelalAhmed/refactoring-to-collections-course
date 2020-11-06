@@ -10,8 +10,7 @@ function load_json($path)
 
 
 
-
-// way one
+/*
 function github_score($events)
 {
     $eventTypes=[];
@@ -46,6 +45,42 @@ function github_score($events)
 
     return $scope;
 }
+*/
+
+
+
+function github_score($events)
+{
+    $eventTypes=$events->map(function ($event) {
+        return $event['type'];
+    });
+
+
+    $scope=0;
+
+    foreach ($eventTypes as $eventType) {
+        switch ($eventType) {
+            case 'PushEvent':
+                $scope+=5;
+                break;
+            case 'CreateEvent':
+                $scope+=4;
+                break;
+            case 'IssuesEvent':
+                $scope+=3;
+                break;
+            case 'CommitCommentEvent':
+                $scope+=2;
+                break;
+            default:
+                $scope+=1;
+                break;
+        }
+    }
+
+    return $scope;
+}
+
 
 
 $events = collect(load_json('data/events.json'));
