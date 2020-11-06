@@ -37,6 +37,15 @@ foreach ($lampsAndWallets as $product) {
 }
 
 
+$variants=$lampsAndWallets->map(function ($product) {
+    return $product['variants'];
+});
+
+
+
+dd($variants);
+
+
 
 $totalCost =$prices->sum();
 
