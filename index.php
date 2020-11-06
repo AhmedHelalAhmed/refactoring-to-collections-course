@@ -28,19 +28,19 @@ $lampsAndWallets=$products->filter(function ($product) {
 });
 
 
-$prices=[];
+$prices=collect();
 
 foreach ($lampsAndWallets as $product) {
     foreach ($product['variants'] as $variant) {
         $prices[]=$variant['price'];
     }
 }
-$totalCost=0;
 
-foreach ($prices as $price) {
-    $totalCost+=$price;
-}
 
+
+$totalCost =$prices->reduce(function ($totalCost, $price) {
+    return $totalCost+$price;
+}, 0);
 
 
 
