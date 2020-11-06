@@ -10,7 +10,6 @@ function load_json($path)
 $products = collect(load_json('data/products.json')['products']);
 
 // echo json_encode($products);
-$totalCost=0;
 
 // old way
 /*
@@ -29,11 +28,21 @@ $lampsAndWallets=$products->filter(function ($product) {
 });
 
 
+$prices=[];
+
 foreach ($lampsAndWallets as $product) {
     foreach ($product['variants'] as $variant) {
-        $totalCost+=$variant['price'];
+        $prices[]=$variant['price'];
     }
 }
+$totalCost=0;
+
+foreach ($prices as $price) {
+    $totalCost+=$price;
+}
+
+
+
 
 
 var_dump($totalCost);// 985.52
