@@ -25,7 +25,7 @@ foreach ($products as $product) {
 
 
 $lampsAndWallets=$products->filter(function ($product) {
-    return in_array($product['product_type'], ['Lamp','Wallet']);
+    return collect(['Lamp','Wallet'])->contains($product['product_type']);
 });
 
 
