@@ -17,13 +17,14 @@ require_once 'vendor/autoload.php';
 // 1*2^8 + 0*2^7 + 0*2^6 + 1*2^5 + 1*2^4 + 0*2^3 + 1*2^2 + 0*2^1 + 1*2^0
 
 // 309
+/*
+way one
 
-// way one
 function binaryToDecimal($binary)
 {
     $total=0;
     $exponent= strlen($binary)-1;
-    
+
     for ($i=0; $i<strlen($binary); $i++) {
         $decimal = $binary[$i]*(2**$exponent);
 
@@ -34,7 +35,20 @@ function binaryToDecimal($binary)
     return $total;
 }
 
+*/
 
+
+// no loops
+
+function binaryToDecimal($binary)
+{
+    return collect(str_split($binary))
+        ->reverse()
+        ->values()
+        ->map(function ($column, $exponent) {
+            return $column*(2**$exponent);
+        })->sum();
+}
 
 
 
