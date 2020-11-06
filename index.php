@@ -27,9 +27,9 @@ foreach ($products as $product) {
 
 $totalCost =$products->filter(function ($product) {
     return collect(['Lamp','Wallet'])->contains($product['product_type']);
-})->map(function ($product) {
+})->flatMap(function ($product) {
     return $product['variants'];
-})->flatten(1)
+})
 ->map(function ($variant) {
     return $variant['price'];
 })->sum();
