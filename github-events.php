@@ -47,28 +47,29 @@ function github_score($events)
 }
 */
 
-
-// global function
-function github_score($events)
+class GithubScore
 {
-    return $events->pluck('type')
-    ->map(function ($eventType) {
-        return lookup_event_score($eventType);
-    })->sum();
-}
+    public static function score($events)
+    {
+        return $events->pluck('type')
+        ->map(function ($eventType) {
+            return static::lookupEventScore($eventType);
+        })->sum();
+    }
 
-// global function
-function lookup_event_score($eventType)
-{
-    // 1 is the default if not found the key
-    return collect([
+    public static function lookupEventScore($eventType)
+    {
+        // 1 is the default if not found the key
+        return collect([
             'PushEvent'=> 5,
             'CreateEvent'=> 4,
             'IssuesEvent'=> 3,
             'CommitCommentEvent' => 2,
         ])->get($eventType, 1);
+    }
 }
+
 
 $events = collect(load_json('data/events.json'));
 
-dd(github_score($events));//132
+dd(GithubScore::score($events));//132
