@@ -51,9 +51,7 @@ function github_score($events)
 
 function github_score($events)
 {
-    $eventTypes=$events->map(function ($event) {
-        return $event['type'];
-    });
+    $eventTypes=$events->pluck('type');
 
 
     $scope=0;
