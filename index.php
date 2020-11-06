@@ -38,9 +38,7 @@ foreach ($lampsAndWallets as $product) {
 
 
 
-$totalCost =$prices->reduce(function ($totalCost, $price) {
-    return $totalCost+$price;
-}, 0);
+$totalCost =$prices->sum();
 
 
 
