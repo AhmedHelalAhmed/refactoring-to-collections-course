@@ -30,9 +30,8 @@ $totalCost =$products->filter(function ($product) {
 })->flatMap(function ($product) {
     return $product['variants'];
 })
-->map(function ($variant) {
-    return $variant['price'];
-})->sum();
+->pluck('price')
+->sum();
 
 
 
